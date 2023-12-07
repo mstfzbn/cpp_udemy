@@ -181,6 +181,64 @@ public:
     }
 };
 
+// Abstract Base Class
+class AbstractBase {
+public:
+    virtual void function1() = 0;
+    virtual void function2() = 0;
+    virtual ~AbstractBase() {} // Virtual destructor for a base class with virtual functions
+};
+
+// Interface 1
+class Interface1 {
+public:
+    virtual void interfaceFunction1() = 0;
+    virtual ~Interface1() {}
+};
+
+// Interface 2
+class Interface2 {
+public:
+    virtual void interfaceFunction2() = 0;
+    virtual ~Interface2() {}
+};
+
+// Derived Class 1 implementing AbstractBase and Interface1
+class DerivedClass1 : public AbstractBase, public Interface1 {
+public:
+    // Implementing pure virtual functions from AbstractBase
+    void function1() override {
+        std::cout << "DerivedClass1 - Function 1\n";
+    }
+
+    void function2() override {
+        std::cout << "DerivedClass1 - Function 2\n";
+    }
+
+    // Implementing pure virtual function from Interface1
+    void interfaceFunction1() override {
+        std::cout << "DerivedClass1 - Interface Function 1\n";
+    }
+};
+
+// Derived Class 2 implementing AbstractBase and Interface2
+class DerivedClass2 : public AbstractBase, public Interface2 {
+public:
+    // Implementing pure virtual functions from AbstractBase
+    void function1() override {
+        std::cout << "DerivedClass2 - Function 1\n";
+    }
+
+    void function2() override {
+        std::cout << "DerivedClass2 - Function 2\n";
+    }
+
+    // Implementing pure virtual function from Interface2
+    void interfaceFunction2() override {
+        std::cout << "DerivedClass2 - Interface Function 2\n";
+    }
+};
+
 int main(const int argc,const char *argv[])
 {
     cout << "26 november 2023 edit\n";
