@@ -1,7 +1,7 @@
 # This is repo for udemy cpp tasks and exercies
 # v 0.01
 
-# vs_code launch.json contents for lld debug
+# vs_code launch.json contents for lldb debug
 
 ```bash
 {
