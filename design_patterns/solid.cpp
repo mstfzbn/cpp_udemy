@@ -1,4 +1,6 @@
+#include <iostream>
 #include <vector>
+
 
 // ---- single responsibility principle (SRP)
 class Book{}; // this class is responsible for storing information about a book
@@ -97,5 +99,44 @@ std::vector<Product*> red_k = bf.filter(products, comboSpecs);
 // ------------------------------------------- //
 
 // ---- Liskov substitution principle (LSP)
+// Base class: Shape
+class Shape {
+public:
+    virtual void draw() = 0; // Pure virtual function
+};
+
+// Derived class: Circle
+class Circle : public Shape {
+public:
+    void draw() override {
+        std::cout << "Drawing a circle." << std::endl;
+    }
+};
+
+// Derived class: Rectangle
+class Rectangle : public Shape {
+public:
+    void draw() override {
+        std::cout << "Drawing a rectangle." << std::endl;
+    }
+};
+
+// Function that uses the base class
+void drawShape(Shape& shape) {
+    shape.draw();
+}
+
+int main() {
+    Circle circle;
+    Rectangle rectangle;
+
+    // LSP in action: We can pass derived class objects to a function that expects the base class
+    drawShape(circle); // Output: Drawing a circle.
+    drawShape(rectangle); // Output: Drawing a rectangle.
+
+    return 0;
+}
+// ------------------------------------------- //
+
 // ---- interface segregation principle (ISP)
 // ---- dependency inversion principle (DIP)
