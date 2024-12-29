@@ -8,6 +8,7 @@ class Printer{
     void print(const Magazine &m){};
 }; // this class is responsible for printing
 // every class should have only one responsibility
+// ------------------------------------------- //
 
 // ---- open-closed principle (OCP)
 enum class Size{ SMALL, MEDIUM, LARGE };
@@ -93,6 +94,7 @@ std::vector<Product*> red_products = bf.filter(products, red);
 std::vector<Product*> large_products = bf.filter(products, large);
 std::vector<Product*> red_large_products = bf.filter(products, AndSpecification<Product>(red, large));
 std::vector<Product*> red_k = bf.filter(products, comboSpecs);
+// ------------------------------------------- //
 
 // ---- Liskov substitution principle (LSP)
 // ---- interface segregation principle (ISP)

@@ -1,5 +1,5 @@
 # This is repo for udemy cpp tasks and exercies
-# v 0.01
+# v 0.02
 
 # vs_code launch.json contents for lldb debug
 
