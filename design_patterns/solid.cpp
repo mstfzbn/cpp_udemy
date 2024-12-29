@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 
 
 // ---- single responsibility principle (SRP)
@@ -159,24 +160,74 @@ class IMashine : public IPrinter, public IScanner{};
 
 class Printer : public IPrinter{
 public:
-    void print(const Document &d){};
+    void print(const Document &d) override {};
 };
 
 class Scanner : public IScanner{
 public:
-    void scan(const Document &d){};
+    void scan(const Document &d) override {};
 };
 
 class Fax : public IFax{
 public:
-    void fax(const Document &d){};
+    void fax(const Document &d) override {};
 };
 
 class MultiMashine : public IMashine{
 public:
-    void print(const Document &d){};
-    void scan(const Document &d){};
+    void print(const Document &d) override {};
+    void scan(const Document &d) override {};
 };
 // ------------------------------------------- //
 
 // ---- dependency inversion principle (DIP)
+// High-level modules should not depend on low-level modules. Both should depend on abstractions.
+// Abstractions should notdepend on details. Details should depend on abstractions.
+
+enum class Relationship
+{
+    parent,
+    child,
+    sibling
+};
+
+class Person
+{
+public:
+    std::string name;
+};
+
+class RelationshipBrowser{
+public:
+    virtual std::vector<Person> find_all_children_of(const std::string &name) = 0;    
+};
+
+class Relationships : public RelationshipBrowser{ //low-level, depends on abstraction
+public:
+    std::vector<std::tuple<Person, Relationship, Person>> relations;
+    void add_parent_and_child(const Person &parent, const Person &child){
+        relations.push_back({parent, Relationship::parent, child});
+        relations.push_back({child, Relationship::child, parent});
+    }
+    virtual std::vector<Person> find_all_children_of(const std::string &name) override{
+        std::vector<Person> result;
+        for(const auto & [first, rel, second] : relations){
+            if(first.name == name && rel == Relationship::parent)
+            {
+                result.push_back(second);
+            }
+        }
+        return result;
+    }
+};
+
+class Research //high-level
+{
+public:
+    Research(RelationshipBrowser &browser){ //depends on abstraction
+        for(const auto &child : browser.find_all_children_of("John")){ // "John" for example
+            std::cout << "John has a child called " << child->name << std::endl;
+        }
+    }
+};
+// ------------------------------------------- //
