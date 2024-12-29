@@ -5,7 +5,7 @@
 // ---- single responsibility principle (SRP)
 class Book{}; // this class is responsible for storing information about a book
 class Magazine{}; // this class is responsible for storing information about a magazine
-class Printer{
+class PrinterUnit{
     void print(const Book &b){};
     void print(const Magazine &m){};
 }; // this class is responsible for printing
@@ -139,4 +139,44 @@ int main() {
 // ------------------------------------------- //
 
 // ---- interface segregation principle (ISP)
+class Document{};
+class IPrinter{
+public:
+    virtual void print(const Document &d) = 0;
+};
+
+class IScanner{
+public:
+    virtual void scan(const Document &d) = 0;
+};
+
+class IFax{
+public:
+    virtual void fax(const Document &d) = 0;
+};
+
+class IMashine : public IPrinter, public IScanner{};
+
+class Printer : public IPrinter{
+public:
+    void print(const Document &d){};
+};
+
+class Scanner : public IScanner{
+public:
+    void scan(const Document &d){};
+};
+
+class Fax : public IFax{
+public:
+    void fax(const Document &d){};
+};
+
+class MultiMashine : public IMashine{
+public:
+    void print(const Document &d){};
+    void scan(const Document &d){};
+};
+// ------------------------------------------- //
+
 // ---- dependency inversion principle (DIP)
